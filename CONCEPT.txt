@@ -1,0 +1,18 @@
+1. `reading_room_v2.c`
+Analogicznie do pierwszej implementacji
+
+2. `person_v2.c`
+W pamięci współdzielonej znajdują się:
+-Informacje o aktualnych rolach poszczególnych osób (tablica już nie masek bitowych a zmiennych boolowskich)
+-Tablica liczników, w której pod odpowiednim indeksem znajduje się informacja ilu czytelników musi przeczytać daną książkę.
+
+W kolejce komunikatów nie znajdują się książki a jedynie indeksy wskazujące elementy tablicy we współdzielonej pamięci.
+Identyfikator książki staje się zatem treścią komunikatu a nie jego typem (w przeciwieństwie do pierwszej implementacji).
+Typ komunikatu odpowiada natomiast identyfikatorowi osoby, do której komunikat ma dotrzeć.
+Dodatkowo, podobnie jak w przypadku pierwszej implementacji, istnieje specjalny typ komunikatu reprezentujący miejsce na półce, gdzię można umieścić nową książkę.
+
+Moim zdaniem jest to bardziej naturalne wykorzystanie takiego mechanizmu jak kolejka komunikatów.
+Dzięki takiej reprezentacji danych zapewniony zostaje wyłączny dostęp dla pisarza ale również współbieżny dostęp pomiędzy czytelnikami.
+Po zakończeniu czytania książki, czytelnicy (w trybie wyłącznego dostępu) dekrementują licznik pod odpowiednim indeksem we współdzielonej tablicy.
+Gdy ostatni z czytelników danej książki ją przeczyta, wysłany zostaje komunikat o wolnym miejscu na nową książkę.
+Pisarz podczas pisania książki przegląda informacje o aktualnych rolach osób i tym, którzy są czytelnikami, wysyła spersonalizowany komunikat zwiekszając jednocześnie odpowiedni licznik.

@@ -1,0 +1,1 @@
+Analogicznie do pierwszej implementacji.
